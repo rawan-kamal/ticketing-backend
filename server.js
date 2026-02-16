@@ -15,7 +15,10 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve uploaded images
