@@ -1,5 +1,8 @@
 const nodemailer = require('nodemailer');
 
+// Get frontend URL from environment variable
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
 // Create transporter with Gmail
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -12,7 +15,7 @@ const transporter = nodemailer.createTransport({
 // Enhanced email template function
 const createEmailTemplate = (ticketNumber, customerName, customerEmail, agentName, message) => {
     // Create tracking URL with pre-filled data
-    const trackingUrl = `http://localhost:5173/track?ticket=${ticketNumber}&email=${encodeURIComponent(customerEmail)}`;
+    const trackingUrl = `${FRONTEND_URL}/track?ticket=${ticketNumber}&email=${encodeURIComponent(customerEmail)}`;
 
     return `
     <!DOCTYPE html>
@@ -271,7 +274,7 @@ const createEmailTemplate = (ticketNumber, customerName, customerEmail, agentNam
           <p><strong>Customer Support Portal</strong></p>
           <p>This is an automated message. Please do not reply to this email directly.</p>
           <div class="footer-links">
-            <a href="http://localhost:5173/" class="footer-link">Submit New Ticket</a>
+            <a href="${FRONTEND_URL}/" class="footer-link">Submit New Ticket</a>
             <a href="${trackingUrl}" class="footer-link">Track Ticket</a>
           </div>
         </div>
